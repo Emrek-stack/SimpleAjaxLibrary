@@ -59,7 +59,7 @@ var AjaxManager = (function () {
         var paramList = null;
         if (paramArray != null)
             paramList = this.formatParameters(paramArray, requestType);
-        //this.callAjax(requestType, url, paramList, successfn, completefn, errorfn);
+        this.callAjax(requestType, url, paramList, dataType, successfn, completefn, errorfn);
     };
     AjaxManager.prototype.AjaxWithForm = function (formObj, dataType, successfn, completefn, errorfn) {
         var form = $(formObj);
@@ -70,6 +70,17 @@ var AjaxManager = (function () {
         var formObjects = method === RequestType.POST ? form.serializeArray() : form.serialize();
         var paramList = this.formatParameters(formObjects, method);
         this.callAjax(method, url, paramList, dataType, successfn, completefn, errorfn);
+    };
+    AjaxManager.prototype.AjaxWebApi = function (url, requestType, dataType, paramArray, successfn, completefn, errorfn) {
+        $.ajaxSetup({
+            cache: false
+        });
+        //url = Configuration.apiServiceUrl + url + "?" + $.param(ServiceApiSecurity);
+        url = "" + url + "?" + $.param("");
+        var paramList = null;
+        if (paramArray != null)
+            paramList = this.formatParameters(paramArray, requestType);
+        this.callAjax(requestType, url, paramList, dataType, successfn, completefn, errorfn);
     };
     return AjaxManager;
 }());

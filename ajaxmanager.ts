@@ -57,7 +57,7 @@ class AjaxManager {
         };
     }
 
-    public Ajax(url: string, requestType: RequestType, dataType: DataType, paramArray: any, successfn, completefn, errorfn) {
+    public Ajax(url: string, requestType: RequestType, dataType: DataType, paramArray: any, successfn: any, completefn: any, errorfn: any) {
         $.ajaxSetup({
             cache: false
         });
@@ -66,7 +66,7 @@ class AjaxManager {
         if (paramArray != null)
             paramList = this.formatParameters(paramArray, requestType);
 
-        //this.callAjax(requestType, url, paramList, successfn, completefn, errorfn);
+        this.callAjax(requestType, url, paramList, dataType, successfn, completefn, errorfn);
 
     }
 
@@ -81,6 +81,23 @@ class AjaxManager {
 
         let paramList = this.formatParameters(formObjects, method);
         this.callAjax(method, url, paramList, dataType, successfn, completefn, errorfn);
+    }
+
+
+    public AjaxWebApi(url: string, requestType: RequestType, dataType: DataType, paramArray: any, successfn, completefn, errorfn) {
+        $.ajaxSetup({
+            cache: false
+        });
+
+        //url = Configuration.apiServiceUrl + url + "?" + $.param(ServiceApiSecurity);
+        url = "" + url + "?" + $.param("");
+
+        let paramList = null;
+
+        if (paramArray != null)
+            paramList = this.formatParameters(paramArray, requestType);
+
+        this.callAjax(requestType, url, paramList, dataType, successfn, completefn, errorfn);
     }
 
 }
