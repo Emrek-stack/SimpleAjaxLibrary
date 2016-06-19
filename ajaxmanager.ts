@@ -34,21 +34,21 @@ class AjaxManager {
             paramList = this.formatParameters(paramArray, requestType);
 
         //this.callAjax(requestType, url, paramList, successfn, completefn, errorfn);
-        
+
     }
 
-    public AjaxWithForm(formObj:any, dataType: DataType, successfn, completefn, errorfn){
-                    //let form = $(formObj);
-                    let form = formObj;
-            let options = form.data();
+    public AjaxWithForm(formObj: any, dataType: DataType, successfn, completefn, errorfn) {
+        //let form = $(formObj);
+        let form = formObj;
+        let options = form.data();
 
-            //var url = options.ajaxForm === "True" ? (Configuration.apiServiceUrl + options.ajaxUrl + "?" + $.param(ServiceApiSecurity)) : form.attr("action");
-            let url =  form.attr("action");
-            let method = form.attr("method");
-            let formObjects = method.toUpperCase() === RequestType.POST ? form.serializeArray() : form.serialize();
+        //var url = options.ajaxForm === "True" ? (Configuration.apiServiceUrl + options.ajaxUrl + "?" + $.param(ServiceApiSecurity)) : form.attr("action");
+        let url = form.attr("action");
+        let method = form.attr("method");
+        let formObjects = method.toUpperCase() === RequestType.POST ? form.serializeArray() : form.serialize();
 
-            let paramList = this.formatParameters(formObjects, method);
-            this.callAjax(method, url, paramList, dataType, successfn, completefn, errorfn);
+        let paramList = this.formatParameters(formObjects, method);
+        this.callAjax(method, url, paramList, dataType, successfn, completefn, errorfn);
     }
 
 }

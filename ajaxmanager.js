@@ -41,7 +41,7 @@ var AjaxManager = (function () {
         this.callAjax(method, url, paramList, dataType, successfn, completefn, errorfn);
     };
     return AjaxManager;
-}());
+} ());
 var RequestType;
 (function (RequestType) {
     RequestType[RequestType["POST"] = 'POST'] = "POST";
