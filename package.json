@@ -1,0 +1,19 @@
+{
+  "name": "simgle-ajax-library",
+  "version": "1.0.0",
+  "description": "Simple Ajax Library",
+  "main": "ajaxmanager.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/EmreKarahan/SimpleAjaxLibrary.git"
+  },
+  "author": "Emre Karahan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/EmreKarahan/SimpleAjaxLibrary/issues"
+  },
+  "homepage": "https://github.com/EmreKarahan/SimpleAjaxLibrary#readme"
+}

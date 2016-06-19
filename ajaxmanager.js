@@ -1,3 +1,4 @@
+/// <reference path="./typings/jquery/jquery.d.ts" />
 var AjaxManager = (function () {
     function AjaxManager() {
     }
@@ -19,29 +20,59 @@ var AjaxManager = (function () {
         return paramList;
     };
     AjaxManager.prototype.callAjax = function (method, url, data, dataType, successfn, completefn, errorfn) {
+        $.support.cors = true;
+        $.ajaxSetup({
+            cache: false
+        });
+        var JQryAjxSetting = {
+            url: url,
+            type: method.toString(),
+            contentType: "application/json; charset=utf-8",
+            dataType: dataType.toString(),
+            async: true,
+            data: data,
+            crossDomain: true,
+            beforeSend: function (request) {
+                request.setRequestHeader("X-Requested-With", "XMLHttpRequest");
+            },
+            error: function (xhr, status, error) {
+                if (errorfn != null) {
+                    errorfn(xhr, status, error);
+                }
+            },
+            success: function (data, status, xhr) {
+                if (successfn != null) {
+                    successfn(data, status, xhr);
+                }
+            },
+            complete: function (data) {
+                if (completefn != null) {
+                    completefn(data);
+                }
+            }
+        };
     };
     AjaxManager.prototype.Ajax = function (url, requestType, dataType, paramArray, successfn, completefn, errorfn) {
-        //         $.ajaxSetup({
-        //     cache: false
-        // });
+        $.ajaxSetup({
+            cache: false
+        });
         var paramList = null;
         if (paramArray != null)
             paramList = this.formatParameters(paramArray, requestType);
         //this.callAjax(requestType, url, paramList, successfn, completefn, errorfn);
     };
     AjaxManager.prototype.AjaxWithForm = function (formObj, dataType, successfn, completefn, errorfn) {
-        //let form = $(formObj);
-        var form = formObj;
+        var form = $(formObj);
         var options = form.data();
         //var url = options.ajaxForm === "True" ? (Configuration.apiServiceUrl + options.ajaxUrl + "?" + $.param(ServiceApiSecurity)) : form.attr("action");
         var url = form.attr("action");
-        var method = form.attr("method");
-        var formObjects = method.toUpperCase() === RequestType.POST ? form.serializeArray() : form.serialize();
+        var method = RequestType[form.attr("method").toUpperCase()];
+        var formObjects = method === RequestType.POST ? form.serializeArray() : form.serialize();
         var paramList = this.formatParameters(formObjects, method);
         this.callAjax(method, url, paramList, dataType, successfn, completefn, errorfn);
     };
     return AjaxManager;
-} ());
+}());
 var RequestType;
 (function (RequestType) {
     RequestType[RequestType["POST"] = 'POST'] = "POST";
